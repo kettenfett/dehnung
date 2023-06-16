@@ -1,159 +1,160 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-.collapsible {
-  background-color: #777;
-  color: white;
-  cursor: pointer;
-  padding: 18px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 15px;
-}
+  <title>Responsive Video Gallery</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-.active, .collapsible:hover {
-  background-color: #555;
-}
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
 
-.content {
-  padding: 0 18px;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.2s ease-out;
-  background-color: #f1f1f1;
-}
-</style>
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .gallery-item {
+      position: relative;
+      margin: 10px;
+      width: 250px;
+      height: 150px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 2px solid #ccc;
+      transition: border-color 0.3s ease;
+    }
+
+    .gallery-item:hover {
+      border-color: #ff0000;
+    }
+
+    .gallery-item video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .panel {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 9999;
+    }
+
+    .panel.open {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .panel-content {
+      background-color: #fff;
+      padding: 20px;
+      max-width: 600px;
+      max-height: 80%;
+      overflow-y: auto;
+      text-align: center;
+    }
+
+    .panel-content video {
+      width: 100%;
+      max-height: 400px;
+      margin-bottom: 20px;
+    }
+
+    .panel-content h3 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .panel-content p {
+      margin: 10px 0 0;
+      font-size: 16px;
+    }
+
+    .close-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 24px;
+      color: #fff;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
+  <div class="gallery">
+    <div class="gallery-item" data-video="video1.mp4" data-title="Video 1" data-description="Description of video 1">
+      <canvas class="thumbnail"></canvas>
+    </div>
+    <div class="gallery-item" data-video="video2.mp4" data-title="Video 2" data-description="Description of video 2">
+      <canvas class="thumbnail"></canvas>
+    </div>
+    <!-- Add more gallery items as needed -->
+  </div>
 
-<h1>Übungen</h1>
-<p>Hier findest du Übungen und Selbstmassagen für verschiedene Körperregionen und Muskelgruppen in Form von kurzen Instruktionsvideos, einige mit Sound (🔊) einige ohne.</p>
-	<p>Für Rollen und Bälle gilt:
-    Sehr langsam rollen und dabei leichten Druck aushüben.
-    Nur in eine Richtung rollen, dann absetzen, Rolle zurück zur Ausgangsposition setzen und wiederholen.
-    normalerweise genügen 6 bis 8 Wiederholungen.
-    Rollen und Bälle sollten etwas weich sein. Bei harten Rollen drückt es sofort auf den Knochen (harte Bälle können aber hilfreich sein, um tiefer im Gewebe liegende Triggerpunkte zu erreichen).
-</p>	
-	
-<button class="collapsible">Handgelenk Training</button>
-<div class="content">
-	<p><a href="https://www.youtube.com/watch?v=nYFcLQYpcsc" target="_blank">(Quelle)</a></p>
-	<h2>Warmup</h2>
-	<video controls width="500" loop>
-	<source src="webm/handgelenk1.webm" type="video/webm">
-	</video>
-	<video controls width="500" loop>
-	<source src="webm/handgelenk2.webm" type="video/webm">
-	</video>
-	<video controls width="500" loop>
-	<source src="webm/handgelenk3.webm" type="video/webm">
-	</video>
-	<h2>Kraft-Übungen</h2>
-	<p>(bis zur Erschöpfung machen)</p>
-	<video controls width="500" loop>
-	<source src="webm/handgelenk4.webm" type="video/webm">
-	</video>
-	<video controls width="500" loop>
-	<source src="webm/handgelenk5.webm" type="video/webm">
-	</video>
-	<video controls width="500" loop>
-	<source src="webm/handgelenk6.webm" type="video/webm">
-	</video> 🔊
-	<video controls width="500" loop>
-	<source src="webm/handgelenk7.webm" type="video/webm">
-	</video> 🔊
-	<h2>Cooldown & Auflockerung zum Abschluss</h2>	
-	<video controls width="500" loop>
-	<source src="webm/handgelenk8b.webm" type="video/webm">
-	</video> 🔊
-	<video controls width="500" loop>
-	<source src="webm/handgelenk9.webm" type="video/webm">
-	</video> 🔊
-	<p>Zum Schluss Arme und Handgelenke ausschütteln.</p>
-</div>
-	
-	
-<button class="collapsible">Nacken Selbstmassage</button>
-<div class="content">
-<p><a href="https://www.youtube.com/watch?v=VydZXepLLIM" target="_blank">(Quelle)</a></p>
-	<h2>Warmup</h2>
-	<video controls width="500" loop>
-	<source src="webm/nackenmassage1.webm" type="video/webm">
-	</video>
-	<video controls width="500" loop>
-	<source src="webm/nackenmassage2.webm" type="video/webm">
-	</video>
-	<video controls width="500" loop>
-	<source src="webm/nackenmassage4.webm" type="video/webm">
-	</video> 🔊
-</div>
-	
-	
-<button class="collapsible">Schulter & Schulterblatt & oberer Rücken Faszien-Massage</button>
-<div class="content">
-<p><a href="www.youtube.com/watch?v=VydZXepLLIM" target="_blank">(Quelle1)</a>, <a href="www.youtube.com/watch?v=F6px0nN9Oik" target="_blank">(Quelle2)</a></p>
-	<h2>Rückenrolle - An der Wand und am Boden</h2>
-	<video controls width="500" loop>
-	<source src="webm/rückenrolle.webm" type="video/webm">
-	</video>
-	<video controls width="500" loop>
-	<source src="webm/rückenrolle boden.webm" type="video/webm">
-	</video>
-	
-	<h2>Schulterblatt-Lockerung</h2>	
-	<video controls width="500" loop>
-	<source src="webm/schulter_wedeln.webm" type="video/webm">
-	</video> 🔊
-	<video controls width="500" loop>
-	<source src="webm/schulter_schuetteln.webm" type="video/webm">
-	</video> 🔊
-	
-	<h2>Schulterblatt-Massage</h2>
-	<p>Mit Duo-Ball</p>
-	<img src="img/ball_duo.png" width="300"><br><br>
-	
-	<video controls width="500" loop>
-	<source src="webm/schulter_duoball1.webm" type="video/webm">
-	</video> 🔊
-	
-	<p>Mit Lacrosse-Ball (links) oder Faszien-Kugel (rechts)</p>
-	<img src="img/ball_lacrosse.png" width="300">	<img src="img/ball_faszie.png" width="300"><br><br>
+  <div class="panel">
+    <div class="panel-content">
+      <span class="close-button">&times;</span>
+      <video controls></video>
+      <h3></h3>
+      <p></p>
+    </div>
+  </div>
 
-	<video controls width="500" loop>
-	<source src="webm/schulter_faszienball.webm" type="video/webm">
-	</video> 🔊
-	
-	<video controls width="500" loop>
-	<source src="webm/schulter_aussen_massage.webm" type="video/webm">
-	</video> 🔊
-	
-	<p>Weitere Übungen ohne Ball</p>
-	<video controls width="500" loop>
-	<source src="webm/schulter_schieben.webm" type="video/webm">
-	</video> 🔊
-</div>	
-	
+  <script>
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const panel = document.querySelector('.panel');
+    const panelContent = document.querySelector('.panel-content');
+    const closeButton = document.querySelector('.close-button');
 
-<script>
-var coll = document.getElementsByClassName("collapsible");
-var i;
+    galleryItems.forEach(item => {
+      const videoSrc = item.dataset.video;
+      const thumbnailCanvas = item.querySelector('.thumbnail');
+      const videoElement = document.createElement('video');
+      videoElement.preload = 'metadata'; // Set preload attribute to 'metadata'
 
-for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var content = this.nextElementSibling;
-    if (content.style.maxHeight){
-      content.style.maxHeight = null;
-    } else {
-      content.style.maxHeight = content.scrollHeight + "px";
-    } 
-  });
-}
-</script>
+      const ctx = thumbnailCanvas.getContext('2d');
 
+      videoElement.addEventListener('loadedmetadata', () => {
+        const videoWidth = videoElement.videoWidth;
+        const videoHeight = videoElement.videoHeight;
+        thumbnailCanvas.width = videoWidth;
+        thumbnailCanvas.height = videoHeight;
+        ctx.drawImage(videoElement, 0, 0, videoWidth, videoHeight);
+      });
+
+      videoElement.src = videoSrc;
+      videoElement.load();
+
+      item.addEventListener('click', () => {
+        panel.classList.add('open');
+        videoElement.src = videoSrc;
+        videoElement.load();
+        videoElement.play();
+        panelContent.querySelector('video').replaceWith(videoElement);
+        panelContent.querySelector('h3').textContent = item.dataset.title;
+        panelContent.querySelector('p').textContent = item.dataset.description;
+      });
+    });
+
+    closeButton.addEventListener('click', () => {
+      panel.classList.remove('open');
+      const videoElement = panelContent.querySelector('video');
+      videoElement.pause();
+      videoElement.src = '';
+      panelContent.querySelector('video').replaceWith(document.createElement('video'));
+    });
+  </script>
 </body>
 </html>
