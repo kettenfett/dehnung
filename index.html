@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Responsive Video Gallery</title>
+  <title>Sport Videos</title>
   <style>
     * {
       box-sizing: border-box;
@@ -11,12 +11,66 @@
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
+      background: url("background.png") repeat;
+      text-align: center;
+    }
+	
+	a   {
+	  color: #888;
+	  cursor: pointer;
+      transition: color 0.3s ease;      
+    }
+	
+	a:hover {
+      color: #714035;
     }
 
     .gallery {
-      display: flex;
+      margin: 20px;
+    }
+
+    .gallery-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      text-align: center;
+	  color: #fff;
+    }
+
+    .category {
+      margin-bottom: 20px;
+    }
+
+    .category-title {
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.3s ease;
+      color: #fff;
+	  background-color: rgba(238, 238, 238, 0.1);
+    }
+
+    .category-title:hover {
+      color: #DF2809;
+    }
+
+    .category-description {
+      color: #888;
+      margin-bottom: 10px;
+	  background-color: rgba(100, 100, 100, 0.1);
+	  padding:10px;
+	  
+    }
+
+    .category-videos {
+      display: none;
       flex-wrap: wrap;
       justify-content: center;
+      margin-top: 10px;
+    }
+
+    .category-videos.show-videos {
+      display: flex;
     }
 
     .gallery-item {
@@ -31,13 +85,25 @@
     }
 
     .gallery-item:hover {
-      border-color: #ff0000;
+      border-color: #DF2809;
     }
 
-    .gallery-item video {
+    .gallery-item img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+
+    .video-title {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      padding: 5px;
+      font-size: 14px;
+      text-align: center;
     }
 
     .panel {
@@ -58,17 +124,17 @@
     }
 
     .panel-content {
-      background-color: #fff;
+      background: url("background.png") repeat;
       padding: 20px;
       max-width: 600px;
       max-height: 80%;
       overflow-y: auto;
       text-align: center;
+	  position: relative; /* Added position relative */
     }
 
     .panel-content video {
       width: 100%;
-      max-height: 400px;
       margin-bottom: 20px;
     }
 
@@ -86,75 +152,294 @@
       position: absolute;
       top: 10px;
       right: 10px;
-      font-size: 24px;
+      font-size: 54px;
       color: #fff;
       cursor: pointer;
+	  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Added text shadow */
+    }
+
+    .slideshow-arrows {
+      position: absolute;
+      top: 50%;
+      font-size: 54px;
+      color: #fff;
+      cursor: pointer;
+      z-index: 9999;
+      display: none;
+	  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Added text shadow */
+    }
+
+    .slideshow-arrow-left {
+      left: 10px;
+      transform: translateY(-80%); /* Adjusted positioning */
+    }
+
+    .slideshow-arrow-right {
+      right: 10px;
+      transform: translateY(-90%); /* Adjusted positioning */
+    }
+	
+	.overlay {
+      background-color: rgba(0, 0, 0, 0.6);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 9998;
+      display: none;
     }
   </style>
 </head>
 <body>
   <div class="gallery">
-    <div class="gallery-item" data-video="video1.mp4" data-title="Video 1" data-description="Description of video 1">
-      <canvas class="thumbnail"></canvas>
+    <h1 class="gallery-title">Übungen</h1>
+    <div class="category">
+      <div class="category-title">Füße</div>
+      <div class="category-description">Dehnungen und Übungen für die Füße, insbesondere die Plantarfaszie. (Quellen: <a href = "https://www.youtube.com/watch?v=Op_KooWep5U" target="_blank" rel="noopener noreferrer">1</a>, <a href = "https://www.youtube.com/watch?v=FfLAeKpYVGQ" target="_blank" rel="noopener noreferrer">2</a>, <a href = "https://www.youtube.com/watch?v=LEWZiaHq0oc" target="_blank" rel="noopener noreferrer">3</a>)</div>
+      <div class="category-videos">
+        <div class="gallery-item" data-video="vid/Dehnung1.mp4" data-title="Dehnung in Rückenlage" data-description="Dehnung in Rückenlage">
+          <img src="thumbs/Dehnung1.jpg" alt="Dehnung1">
+          <div class="video-title">Dehnung in Rückenlage</div>
+        </div>
+        <div class="gallery-item" data-video="vid/Dehnung2_Eversion_und_Plantarflexion.mp4" data-title="Eversion und Plantarflexion" data-description="Eversion und Plantarflexion">
+          <img src="thumbs/Dehnung2_Eversion_und_Plantarflexion.jpg" alt="Eversion_und_Plantarflexion">
+          <div class="video-title">Eversion und Plantarflexion</div>
+        </div>
+		<div class="gallery-item" data-video="vid/Dehnung3_Fueße_drehen.mp4" data-title="Füße drehen" data-description="Fueße drehen">
+          <img src="thumbs/Dehnung3_Fueße_drehen.jpg" alt="Füße drehen">
+          <div class="video-title">Füße drehen</div>
+        </div>
+        <div class="gallery-item" data-video="vid/Dehnung4_Fueße_drehen2.mp4" data-title="Füße drehen2" data-description="Dehnung4 - Fueße drehen">
+          <img src="thumbs/Dehnung4_Fueße_drehen2.jpg" alt="Füße drehen">
+          <div class="video-title">Füße drehen</div>
+        </div>
+		<div class="gallery-item" data-video="vid/Dehnung5_ABC-malen.mp4" data-title="ABC malen" data-description="ABC malen">
+          <img src="thumbs/Dehnung5_ABC-malen.jpg" alt="ABC-malen">
+          <div class="video-title">ABC-malen</div>
+        </div>
+        <div class="gallery-item" data-video="vid/Dehnung6_Knöchelpumpen.mp4" data-title="Knöchelpumpen" data-description="Knöchelpumpen">
+          <img src="thumbs/Dehnung6_Knöchelpumpen.jpg" alt="Knöchelpumpen">
+          <div class="video-title">Knöchelpumpen</div>
+        </div>
+		<div class="gallery-item" data-video="vid/Dehnung7_Zehenspitzen.mp4" data-title="Wippen" data-description="Wippen">
+          <img src="thumbs/Dehnung7_Zehenspitzen.jpg" alt="Wippen">
+          <div class="video-title">Wippen</div>
+        </div>
+		<div class="gallery-item" data-video="vid/Dehnung8_Plantarfaszie2.mp4" data-title="Plantarfaszie" data-description="Plantarfaszie">
+          <img src="thumbs/Dehnung8_Plantarfaszie2.jpg" alt="Plantarfaszie">
+          <div class="video-title">Plantarfaszie</div>
+        </div>
+		<div class="gallery-item" data-video="vid/Dehnung9_Plantarfaszie_Massage.mp4" data-title="Massage" data-description="Massage">
+          <img src="thumbs/Dehnung9_Plantarfaszie_Massage.jpg" alt="Massage">
+          <div class="video-title">Massage</div>
+        </div>
+		<div class="gallery-item" data-video="vid/Dehnung10_Plantarfaszie_Runners-Stretch.mp4" data-title="Runners-Stretch" data-description="Runners-Stretch">
+          <img src="thumbs/Dehnung10_Plantarfaszie_Runners-Stretch.jpg" alt="Runners-Stretch">
+          <div class="video-title">Runners-Stretch</div>
+        </div>
+		<div class="gallery-item" data-video="vid/Dehnung11_Fueße-rotieren.mp4" data-title="Fueße rotieren" data-description="Fueße rotieren">
+          <img src="thumbs/Dehnung11_Fueße-rotieren.jpg" alt="Fueße rotieren">
+          <div class="video-title">Fueße rotieren</div>
+        </div>
+		<div class="gallery-item" data-video="vid/Dehnung12_Wadenheber.mp4" data-title="Wadenheber" data-description="Wadenheber">
+          <img src="thumbs/Dehnung12_Wadenheber.jpg" alt="Wadenheber">
+          <div class="video-title">Wadenheber</div>
+        </div>		
+      </div>
     </div>
-    <div class="gallery-item" data-video="video2.mp4" data-title="Video 2" data-description="Description of video 2">
-      <canvas class="thumbnail"></canvas>
+    <div class="category">
+      <div class="category-title">Handgelenk und Unterarm</div>
+      <div class="category-description">Handgelenk und Unterarm</div>
+      <div class="category-videos">
+        <div class="gallery-item" data-video="vid/handgelenk1.webm" data-title="Hände rotieren" data-description="Hände rotieren">
+          <img src="thumbs/handgelenk1.jpg" alt="Hände rotieren">
+          <div class="video-title">Hände rotieren</div>
+        </div>
+		<div class="gallery-item" data-video="vid/handgelenk2.webm" data-title="8ten-Kreisen" data-description="8ten-Kreisen">
+          <img src="thumbs/handgelenk2.jpg" alt="8ten-Kreisen">
+          <div class="video-title">8ten-Kreisen</div>
+        </div>
+		<div class="gallery-item" data-video="vid/handgelenk3.webm" data-title="Boden-Rotation" data-description="Boden-Rotation">
+          <img src="thumbs/handgelenk3.jpg" alt="Boden-Rotation">
+          <div class="video-title">Boden-Rotation</div>
+        </div>
+		<div class="gallery-item" data-video="vid/handgelenk4.webm" data-title="Hand-Curling 1" data-description="Hand-Curling 1">
+          <img src="thumbs/handgelenk4.jpg" alt="Hand-Curling 1">
+          <div class="video-title">Hand-Curling 1</div>
+        </div>
+		<div class="gallery-item" data-video="vid/handgelenk5.webm" data-title="Hand-Curling 2" data-description="Hand-Curling 2">
+          <img src="thumbs/handgelenk5.jpg" alt="Hand-Curling 2">
+          <div class="video-title">Hand-Curling 2</div>
+        </div>
+		<div class="gallery-item" data-video="vid/handgelenk6.webm" data-title="Hand-Curling (seitlich 1)" data-description="Hand-Curling (seitlich 1)">
+          <img src="thumbs/handgelenk6.jpg" alt="Hand-Curling (seitlich 1)">
+          <div class="video-title">Hand-Curling (seitlich 1)</div>
+        </div>
+		<div class="gallery-item" data-video="vid/handgelenk7.webm" data-title="Hand-Curling (seitlich 2)" data-description="Hand-Curling (seitlich 2)">
+          <img src="thumbs/handgelenk7.jpg" alt="Hand-Curling (seitlich 2)">
+          <div class="video-title">Hand-Curling (seitlich 2)</div>
+        </div>
+		<div class="gallery-item" data-video="vid/handgelenk8.webm" data-title="Unterarmsehne dehnen 1" data-description="Unterarmsehne dehnen 1">
+          <img src="thumbs/handgelenk8.jpg" alt="Unterarmsehne dehnen 1">
+          <div class="video-title">Unterarmsehne dehnen 1</div>
+        </div>
+		<div class="gallery-item" data-video="vid/handgelenk9.webm" data-title="Unterarmsehne dehnen 2" data-description="Unterarmsehne dehnen 2">
+          <img src="thumbs/handgelenk9.jpg" alt="Unterarmsehne dehnen 2">
+          <div class="video-title">Unterarmsehne dehnen 2</div>
+        </div>
+      </div>
     </div>
-    <!-- Add more gallery items as needed -->
+	<div class="category">
+      <div class="category-title">Schultern und Nacken</div>
+      <div class="category-description">Description of Category 3</div>
+      <div class="category-videos">
+        
+      </div>
+    </div>
+    <!-- Add more categories and videos as needed -->
   </div>
 
   <div class="panel">
+	
     <div class="panel-content">
+	  <div class="slideshow-arrows slideshow-arrow-left">&lt;</div>
       <span class="close-button">&times;</span>
       <video controls></video>
       <h3></h3>
       <p></p>
-    </div>
-  </div>
+	  <div class="slideshow-arrows slideshow-arrow-right">&gt;</div>  
+    </div>  
+	
+  </div>  
 
+  <div class="overlay"></div>
+  
   <script>
+    const categories = document.querySelectorAll('.category');
+    const categoryTitles = document.querySelectorAll('.category-title');
+    const categoryVideos = document.querySelectorAll('.category-videos');
     const galleryItems = document.querySelectorAll('.gallery-item');
     const panel = document.querySelector('.panel');
     const panelContent = document.querySelector('.panel-content');
     const closeButton = document.querySelector('.close-button');
+    const slideshowArrows = document.querySelectorAll('.slideshow-arrows');
+    const overlay = document.querySelector('.overlay');
+    let currentVideoIndex = 0;
+    let currentCategoryIndex = 0;
+    let currentCategoryVideos = [];
 
-    galleryItems.forEach(item => {
-      const videoSrc = item.dataset.video;
-      const thumbnailCanvas = item.querySelector('.thumbnail');
-      const videoElement = document.createElement('video');
-      videoElement.preload = 'metadata'; // Set preload attribute to 'metadata'
+	overlay.addEventListener('click', closeVideo);
+    document.addEventListener('keydown', handleKeyPress);    
 
-      const ctx = thumbnailCanvas.getContext('2d');
-
-      videoElement.addEventListener('loadedmetadata', () => {
-        const videoWidth = videoElement.videoWidth;
-        const videoHeight = videoElement.videoHeight;
-        thumbnailCanvas.width = videoWidth;
-        thumbnailCanvas.height = videoHeight;
-        ctx.drawImage(videoElement, 0, 0, videoWidth, videoHeight);
-      });
-
-      videoElement.src = videoSrc;
-      videoElement.load();
-
-      item.addEventListener('click', () => {
-        panel.classList.add('open');
-        videoElement.src = videoSrc;
-        videoElement.load();
-        videoElement.play();
-        panelContent.querySelector('video').replaceWith(videoElement);
-        panelContent.querySelector('h3').textContent = item.dataset.title;
-        panelContent.querySelector('p').textContent = item.dataset.description;
-      });
-    });
-
-    closeButton.addEventListener('click', () => {
+	function closeVideo() {
+	  const video = panelContent.querySelector('video');
       panel.classList.remove('open');
-      const videoElement = panelContent.querySelector('video');
-      videoElement.pause();
-      videoElement.src = '';
-      panelContent.querySelector('video').replaceWith(document.createElement('video'));
+	  video.pause();
+	  video.currentTime = 0;
+    }
+	
+    function handleKeyPress(event) {
+      if (event.key === 'Escape') {
+        closeVideo();
+      }
+    }
+
+    categoryTitles.forEach((title, index) => {
+      title.addEventListener('click', () => {
+        toggleCategoryVideos(index);
+      });
     });
+
+    galleryItems.forEach((item, index) => {
+      item.addEventListener('click', () => {
+        openVideo(index);
+      });
+    });
+
+    closeButton.addEventListener('click', closeVideo);
+
+    slideshowArrows.forEach(arrow => {
+      arrow.addEventListener('click', handleSlideshowArrowClick);
+    });
+
+    function toggleCategoryVideos(index) {
+      if (index === currentCategoryIndex) {
+        categoryVideos[currentCategoryIndex].classList.toggle('show-videos');
+      } else {
+        categoryVideos[currentCategoryIndex].classList.remove('show-videos');
+        categoryVideos[index].classList.add('show-videos');
+        currentCategoryIndex = index;
+      }
+    }
+
+    function openVideo(index) {
+      const video = panelContent.querySelector('video');
+      const videoTitle = panelContent.querySelector('h3');
+      const videoDescription = panelContent.querySelector('p');
+	  currentCategoryVideos = categoryVideos[currentCategoryIndex].querySelectorAll('.gallery-item');
+      video.src = galleryItems[index].getAttribute('data-video');
+      videoTitle.textContent = galleryItems[index].getAttribute('data-title');
+      videoDescription.textContent = galleryItems[index].getAttribute('data-description');
+      panel.classList.add('open');
+      currentVideoIndex = index;
+      updateSlideshowArrows();
+    }
+	
+	// Close video when clicking outside the video area
+    document.addEventListener('click', function(e) {
+      if (!panelContent.contains(e.target) && !galleryItems[currentVideoIndex].contains(e.target)) {
+        closeVideo();
+      }
+    });
+
+    function handleSlideshowArrowClick(event) {
+      const arrow = event.target;
+      if (arrow.classList.contains('slideshow-arrow-left')) {
+        currentVideoIndex = (currentVideoIndex - 1 + currentCategoryVideos.length) % currentCategoryVideos.length;
+      } else if (arrow.classList.contains('slideshow-arrow-right')) {
+        currentVideoIndex = (currentVideoIndex + 1) % currentCategoryVideos.length;
+      }
+      const video = panelContent.querySelector('video');
+      const videoTitle = panelContent.querySelector('h3');
+      const videoDescription = panelContent.querySelector('p');
+      video.src = currentCategoryVideos[currentVideoIndex].getAttribute('data-video');
+	  videoTitle.textContent = currentCategoryVideos[currentVideoIndex].querySelector('.video-title').textContent;
+	  videoDescription.textContent = currentCategoryVideos[currentVideoIndex].getAttribute('data-description');
+      updateSlideshowArrows();
+    }
+
+    function updateSlideshowArrows() {
+      const leftArrow = document.querySelector('.slideshow-arrow-left');
+      const rightArrow = document.querySelector('.slideshow-arrow-right');
+      if (currentCategoryVideos.length <= 1) {
+        leftArrow.style.display = 'none';
+        rightArrow.style.display = 'none';
+      } else {
+        if (currentVideoIndex === 0) {
+          leftArrow.style.display = 'none';
+          rightArrow.style.display = 'block';
+        } else if (currentVideoIndex === currentCategoryVideos.length - 1) {
+          leftArrow.style.display = 'block';
+          rightArrow.style.display = 'none';
+        } else {
+          leftArrow.style.display = 'block';
+          rightArrow.style.display = 'block';
+        }
+      }
+    }
+
+    function updateCurrentCategoryVideos() {
+      currentCategoryVideos = categoryVideos[currentCategoryIndex].querySelectorAll('.gallery-item');
+    }
+
+    function initializeGallery() {
+	  //öffnet die erste Kategorie beim Laden der Webseite:
+      //categoryVideos[currentCategoryIndex].classList.add('show-videos');
+      updateCurrentCategoryVideos();
+    }	  
+    initializeGallery();
+	  
   </script>
 </body>
 </html>
